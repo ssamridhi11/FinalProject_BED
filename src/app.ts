@@ -1,4 +1,7 @@
 import express, { Express } from "express";
+import assignmentRoutes from "./api/v1/routes/assignmentRoutes";
+import courseRoutes from "./api/v1/routes/courseRoutes";
+import quizRoutes from "./api/v1/routes/quizRoutes";
 
 const app: Express = express(); // initalisation of express application
 interface HealthCheckResponse{
@@ -8,6 +11,9 @@ interface HealthCheckResponse{
     version: string;
 }
 
+app.use(express.json());
+
+// health
 app.get("/api/v1/health", (req, res) => {
     const healthData: HealthCheckResponse = {
         status: "OK",
@@ -18,4 +24,9 @@ app.get("/api/v1/health", (req, res) => {
 
     res.json(healthData);
 });
-export default app 
+
+app.use("/api/v1/assignments", assignmentRoutes);
+app.use("/api/v1/courses", courseRoutes);
+app.use("/api/v1/quizzes", quizRoutes);
+
+export default app;
