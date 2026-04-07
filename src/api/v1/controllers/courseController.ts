@@ -19,7 +19,8 @@ export const getCourseByIdController = async (
   res: Response
 ): Promise<void> => {
   try {
-    const course = await courseService.getCourseById(req.params.id);
+    const id = String(req.params.id);
+    const course = await courseService.getCourseById(id);
 
     res.status(HTTP_STATUS.OK).json({
       message: "Course retrieved successfully.",
@@ -55,7 +56,8 @@ export const updateCourseController = async (
   res: Response
 ): Promise<void> => {
   try {
-    const updated = await courseService.updateCourse(req.params.id, req.body);
+    const id = String(req.params.id);
+    const updated = await courseService.updateCourse(id, req.body);
 
     res.status(HTTP_STATUS.OK).json({
       message: "Course updated successfully.",
@@ -73,7 +75,8 @@ export const deleteCourseController = async (
   res: Response
 ): Promise<void> => {
   try {
-    await courseService.deleteCourse(req.params.id);
+    const id = String(req.params.id);
+    await courseService.deleteCourse(id);
 
     res.status(HTTP_STATUS.OK).json({
       message: "Course deleted successfully.",

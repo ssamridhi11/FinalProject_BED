@@ -19,7 +19,8 @@ export const getAssignmentByIdController = async (
   res: Response
 ): Promise<void> => {
   try {
-    const assignment = await assignmentService.getAssignmentById(req.params.id);
+    const id = String(req.params.id);
+    const assignment = await assignmentService.getAssignmentById(id);
 
     res.status(HTTP_STATUS.OK).json({
       message: "Assignment retrieved successfully.",
@@ -55,7 +56,8 @@ export const updateAssignmentController = async (
   res: Response
 ): Promise<void> => {
   try {
-    const updated = await assignmentService.updateAssignment(req.params.id, req.body);
+    const id = String(req.params.id);
+    const updated = await assignmentService.updateAssignment(id, req.body);
 
     res.status(HTTP_STATUS.OK).json({
       message: "Assignment updated successfully.",
@@ -73,7 +75,8 @@ export const deleteAssignmentController = async (
   res: Response
 ): Promise<void> => {
   try {
-    await assignmentService.deleteAssignment(req.params.id);
+    const id = String(req.params.id);
+    await assignmentService.deleteAssignment(id);
 
     res.status(HTTP_STATUS.OK).json({
       message: "Assignment deleted successfully.",
@@ -90,7 +93,8 @@ export const updateAssignmentGradeController = async (
   res: Response
 ): Promise<void> => {
   try {
-    const updated = await assignmentService.updateAssignment(req.params.id, {
+    const id = String(req.params.id);
+    const updated = await assignmentService.updateAssignment(id, {
       grade: req.body.grade,
     });
 
