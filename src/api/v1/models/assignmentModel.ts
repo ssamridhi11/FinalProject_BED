@@ -4,5 +4,5 @@ export interface Assignment {
   title: string;
   dueDate: Date | string;
   status: 'pending' | 'completed' | 'overdue';
-  grade?: string;      
+  grade?: 'A' | 'B' | 'C' | 'D' | 'F';      
 }
