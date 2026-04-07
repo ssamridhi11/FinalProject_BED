@@ -20,7 +20,8 @@ export const getQuizByIdController = async (
   res: Response
 ): Promise<void> => {
   try {
-    const quiz = await quizService.getQuizById(req.params.id);
+    const id = String(req.params.id);
+    const quiz = await quizService.getQuizById(id);
     res.status(HTTP_STATUS.OK).json({
       message: "Quiz retrieved successfully.",
       data: quiz,
@@ -56,7 +57,8 @@ export const updateQuizController = async (
   res: Response
 ): Promise<void> => {
   try {
-    const updatedQuiz = await quizService.updateQuiz(req.params.id, req.body);
+    const id = String(req.params.id);
+    const updatedQuiz = await quizService.updateQuiz(id, req.body);
     res.status(HTTP_STATUS.OK).json({
       message: "Quiz updated successfully.",
       data: updatedQuiz,
@@ -73,7 +75,8 @@ export const deleteQuizController = async (
   res: Response
 ): Promise<void> => {
   try {
-    await quizService.deleteQuiz(req.params.id);
+    const id = String(req.params.id);
+    await quizService.deleteQuiz(id);
     res.status(HTTP_STATUS.OK).json({
       message: "Quiz deleted successfully.",
     });
