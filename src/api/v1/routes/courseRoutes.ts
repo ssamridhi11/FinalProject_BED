@@ -3,10 +3,10 @@ import * as courseController from "../controllers/courseController";
 
 const router = Router();
 
-router.post("/", courseController.createCourse);
-router.get("/", courseController.getAllCourses);
-router.get("/:id", courseController.getCourseById);
-router.put("/:id", courseController.updateCourse);
-router.delete("/:id", courseController.deleteCourse);
+router.post("/", courseController.createCourseController);
+router.get("/", courseController.getAllCoursesController);
+router.get("/:id", courseController.getCourseByIdController);
+router.put("/:id", courseController.updateCourseController);
+router.delete("/:id", courseController.deleteCourseController);
 
 export default router;

@@ -3,10 +3,10 @@ import * as quizController from "../controllers/quizController";
 
 const router = Router();
 
-router.post("/", quizController.createQuiz);
-router.get("/", quizController.getAllQuizzes);
-router.get("/:id", quizController.getQuizById);
-router.put("/:id", quizController.updateQuiz);
-router.delete("/:id", quizController.deleteQuiz);
+router.post("/", quizController.createQuizController);
+router.get("/", quizController.getAllQuizzesController);
+router.get("/:id", quizController.getQuizByIdController);
+router.put("/:id", quizController.updateQuizController);
+router.delete("/:id", quizController.deleteQuizController);
 
 export default router;
