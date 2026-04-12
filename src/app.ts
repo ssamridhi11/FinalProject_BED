@@ -2,6 +2,7 @@ import express, { Express } from "express";
 import assignmentRoutes from "./api/v1/routes/assignmentRoutes";
 import courseRoutes from "./api/v1/routes/courseRoutes";
 import quizRoutes from "./api/v1/routes/quizRoutes";
+import { errorHandler } from "./api/v1/middleware/errorMiddleware";
 
 const app: Express = express(); // initalisation of express application
 interface HealthCheckResponse{
@@ -28,5 +29,5 @@ app.get("/api/v1/health", (req, res) => {
 app.use("/api/v1/assignments", assignmentRoutes);
 app.use("/api/v1/courses", courseRoutes);
 app.use("/api/v1/quizzes", quizRoutes);
-
+app.use(errorHandler);
 export default app;
