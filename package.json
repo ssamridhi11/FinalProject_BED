@@ -1,0 +1,43 @@
+{
+  "name": "finalproject_bed",
+  "version": "1.0.0",
+  "description": "The study Planner API is a Back-end Application designed to help students organise and manage academic workload efficiently.  It allow users to **Manage assignements, Track quiz attempts,Score and Date , evaluations and help calculate GPA** in a structured way.",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "start": "ts-node src/server.ts",
+    "build": "tsc",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ssamridhi11/FinalProject_BED.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/ssamridhi11/FinalProject_BED/issues"
+  },
+  "homepage": "https://github.com/ssamridhi11/FinalProject_BED#readme",
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^25.5.2",
+    "@types/supertest": "^7.2.0",
+    "jest": "^30.3.0",
+    "supertest": "^7.2.2",
+    "ts-jest": "^29.4.9",
+    "ts-node": "^10.9.2",
+    "typescript": "^6.0.2"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "joi": "^18.1.2"
+  }
+}
