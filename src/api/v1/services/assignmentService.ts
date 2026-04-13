@@ -5,7 +5,9 @@ export const getAllAssignments = async (): Promise<Assignment[]> => {
 	return assignmentRepo.getAllAssignments();
 };
 
-export const createAssignment = async (assignmentData: Partial<Assignment>): Promise<Assignment> => {
+export const createAssignment = async (
+	assignmentData: Partial<Assignment>
+): Promise<Assignment> => {
 	const id = await assignmentRepo.createAssignment(assignmentData);
 	return { id, ...assignmentData } as Assignment;
 };
@@ -21,10 +23,12 @@ export const updateAssignment = async (
 	updates: Partial<Assignment>
 ): Promise<Assignment> => {
 	const assignment = await getAssignmentById(id);
+
 	const updated: Assignment = {
 		...assignment,
 		...updates,
 	};
+
 	await assignmentRepo.updateAssignment(id, updated);
 	return updated;
 };
@@ -34,3 +38,21 @@ export const deleteAssignment = async (id: string): Promise<void> => {
 	await assignmentRepo.deleteAssignment(id);
 };
 
+/**
+ * Marks overdue assignments automatically
+ */
+export const markOverdueAssignments = async (): Promise<void> => {
+	const assignments = await assignmentRepo.getAllAssignments();
+	const now = new Date();
+
+	for (const assignment of assignments) {
+		const dueDate = new Date(assignment.dueDate);
+
+		if (dueDate < now && assignment.status !== "overdue") {
+			await assignmentRepo.updateAssignment(assignment.id!, {
+				...assignment,
+				status: "overdue",
+			});
+		}
+	}
+};
