@@ -1,12 +1,14 @@
 import { Request, Response } from "express";
+import { AuthRequest } from "../middleware/authMiddleware";
 import { HTTP_STATUS } from "../../../constants/httpConstants";
 import * as assignmentService from "../services/assignmentService";
 
 export const getAllAssignmentsController = async (
-  req: Request,
+  req: AuthRequest,
   res: Response
 ): Promise<void> => {
-  const assignments = await assignmentService.getAllAssignments();
+  const ownerId = req.user?.uid;
+  const assignments = await assignmentService.getAllAssignments(ownerId);
 
   res.status(HTTP_STATUS.OK).json({
     message: "Assignments retrieved successfully.",
@@ -34,11 +36,12 @@ export const getAssignmentByIdController = async (
 };
 
 export const createAssignmentController = async (
-  req: Request,
+  req: AuthRequest,
   res: Response
 ): Promise<void> => {
   try {
-    const assignment = await assignmentService.createAssignment(req.body);
+    const ownerId = req.user?.uid;
+    const assignment = await assignmentService.createAssignment(req.body, ownerId);
 
     res.status(HTTP_STATUS.CREATED).json({
       message: "Assignment created successfully.",

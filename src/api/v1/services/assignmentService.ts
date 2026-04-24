@@ -1,14 +1,15 @@
 import * as assignmentRepo from "../repositories/assignmentRepository";
 import { Assignment } from "../models/assignmentModel";
 
-export const getAllAssignments = async (): Promise<Assignment[]> => {
-	return assignmentRepo.getAllAssignments();
+export const getAllAssignments = async (ownerId?: string): Promise<Assignment[]> => {
+	return assignmentRepo.getAllAssignments(ownerId);
 };
 
 export const createAssignment = async (
-	assignmentData: Partial<Assignment>
+	assignmentData: Partial<Assignment>,
+	ownerId?: string
 ): Promise<Assignment> => {
-	const id = await assignmentRepo.createAssignment(assignmentData);
+	const id = await assignmentRepo.createAssignment(assignmentData, ownerId);
 	return { id, ...assignmentData } as Assignment;
 };
 
