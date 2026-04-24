@@ -1,12 +1,12 @@
-import { authenticate } from '../src/api/v1/middleware/authMiddleware';
+import { authenticate, AuthRequest } from '../src/api/v1/middleware/authMiddleware';
 import { requireRole } from '../src/api/v1/middleware/roleMiddleware';
-import { Request, Response } from 'express';
+import { Response } from 'express';
 
 // We will test role middleware logic by calling the factory with a mock req
 
 describe('Role middleware', () => {
   test('requireRole allows matching role', () => {
-    const req: any = { user: { claims: { role: 'admin' } } } as Request;
+    const req = { user: { claims: { role: 'admin' } } } as AuthRequest;
     const res: any = {} as Response;
     const next = jest.fn();
     const mw = requireRole('admin');
@@ -15,7 +15,7 @@ describe('Role middleware', () => {
   });
 
   test('requireRole forbids non-matching role', () => {
-    const req: any = { user: { claims: { role: 'user' } } } as Request;
+    const req = { user: { claims: { role: 'user' } } } as AuthRequest;
     const res: any = { status: jest.fn().mockReturnThis(), json: jest.fn() } as any;
     const next = jest.fn();
     const mw = requireRole('admin');
