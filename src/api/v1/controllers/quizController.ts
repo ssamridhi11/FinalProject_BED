@@ -1,13 +1,15 @@
 import { Request, Response } from "express";
+import { AuthRequest } from '../middleware/authMiddleware';
 import { HTTP_STATUS } from "../../../constants/httpConstants";
 import * as quizService from "../services/quizService";
 
 // GET all quizzes
 export const getAllQuizzesController = async (
-  req: Request,
+  req: AuthRequest,
   res: Response
 ): Promise<void> => {
-  const quizzes = await quizService.getAllQuizzes();
+  const ownerId = req.user?.uid;
+  const quizzes = await quizService.getAllQuizzes(ownerId);
   res.status(HTTP_STATUS.OK).json({
     message: "Quizzes retrieved successfully.",
     data: quizzes,
@@ -35,11 +37,12 @@ export const getQuizByIdController = async (
 
 // CREATE quiz
 export const createQuizController = async (
-  req: Request,
+  req: AuthRequest,
   res: Response
 ): Promise<void> => {
   try {
-    const quiz = await quizService.createQuiz(req.body);
+    const ownerId = req.user?.uid;
+    const quiz = await quizService.createQuiz(req.body, ownerId);
     res.status(HTTP_STATUS.CREATED).json({
       message: "Quiz created successfully.",
       data: quiz,

@@ -27,11 +27,12 @@ const swaggerSpec = {
       },
       Course: {
         type: "object",
-        required: ["name"],
+        required: ["title"],
         properties: {
           id: { type: "string", example: "course123" },
-          name: { type: "string", example: "Biology 101" },
+          title: { type: "string", example: "Biology 101" },
           description: { type: "string" },
+          endDate: { type: "string", format: "date-time" },
         },
       },
       Quiz: {
@@ -46,17 +47,26 @@ const swaggerSpec = {
         },
       },
   },
+    securitySchemes: {
+      bearerAuth: {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+      },
+    },
   },
   paths: {
     "/api/v1/assignments": {
       get: {
         tags: ["Assignments"],
         summary: "List all assignments",
+        security: [{ bearerAuth: [] }],
         responses: {"200": {description: "A list of assignments"}},
       },
       post: {
         tags: ["Assignments"],
         summary: "Create a new assignment",
+        security: [{ bearerAuth: [] }],
         requestBody: {content: {"application/json": {schema: { $ref: "#/components/schemas/Assignment" }}}},
         responses: {"201": {description: "Created"}},
       },
@@ -67,12 +77,12 @@ const swaggerSpec = {
       delete: { tags: ["Assignments"], summary: "Delete assignment", parameters: [{name: "id", in: "path", required: true, schema: {type: "string"}}], responses: {"204": {description: "Deleted"}}},
     },
     "/api/v1/courses": {
-      get: { tags: ["Courses"], summary: "List courses", responses: {"200": {description: "A list of courses"}}},
-      post: { tags: ["Courses"], summary: "Create course", requestBody: {content: {"application/json": {schema: { $ref: "#/components/schemas/Course" }}}}, responses: {"201": {description: "Created"}}},
+      get: { tags: ["Courses"], summary: "List courses", security: [{ bearerAuth: [] }], responses: {"200": {description: "A list of courses"}}},
+      post: { tags: ["Courses"], summary: "Create course", security: [{ bearerAuth: [] }], requestBody: {content: {"application/json": {schema: { $ref: "#/components/schemas/Course" }}}}, responses: {"201": {description: "Created"}}},
     },
     "/api/v1/quizzes": {
-      get: { tags: ["Quizzes"], summary: "List quizzes", responses: {"200": {description: "A list of quizzes"}}},
-      post: { tags: ["Quizzes"], summary: "Create quiz", requestBody: {content: {"application/json": {schema: { $ref: "#/components/schemas/Quiz" }}}}, responses: {"201": {description: "Created"}}},
+      get: { tags: ["Quizzes"], summary: "List quizzes", security: [{ bearerAuth: [] }], responses: {"200": {description: "A list of quizzes"}}},
+      post: { tags: ["Quizzes"], summary: "Create quiz", security: [{ bearerAuth: [] }], requestBody: {content: {"application/json": {schema: { $ref: "#/components/schemas/Quiz" }}}}, responses: {"201": {description: "Created"}}},
     },
   },
 };
