@@ -1,3 +1,4 @@
+import './config/firebase';
 import express, { Express } from "express";
 import assignmentRoutes from "./api/v1/routes/assignmentRoutes";
 import courseRoutes from "./api/v1/routes/courseRoutes";

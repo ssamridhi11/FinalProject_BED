@@ -1,12 +1,12 @@
 import * as quizRepo from "../repositories/quizRepository";
 import { Quiz } from "../models/quizModel";
 
-export const getAllQuizzes = async (): Promise<Quiz[]> => {
-  return quizRepo.getAllQuizzes();
+export const getAllQuizzes = async (ownerId?: string): Promise<Quiz[]> => {
+  return quizRepo.getAllQuizzes(ownerId);
 };
 
-export const createQuiz = async (quizData: Partial<Quiz>): Promise<Quiz> => {
-  const id = await quizRepo.createQuiz(quizData);
+export const createQuiz = async (quizData: Partial<Quiz>, ownerId?: string): Promise<Quiz> => {
+  const id = await quizRepo.createQuiz(quizData, ownerId);
   return { id, ...quizData } as Quiz;
 };
 

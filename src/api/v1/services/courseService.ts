@@ -1,12 +1,12 @@
 import * as courseRepo from "../repositories/courseRepository";
 import { Course } from "../models/courseModel";
 
-export const getAllCourses = async (): Promise<Course[]> => {
-  return courseRepo.getAllCourses();
+export const getAllCourses = async (ownerId?: string): Promise<Course[]> => {
+  return courseRepo.getAllCourses(ownerId);
 };
 
-export const createCourse = async (courseData: Partial<Course>): Promise<Course> => {
-  const id = await courseRepo.createCourse(courseData);
+export const createCourse = async (courseData: Partial<Course>, ownerId?: string): Promise<Course> => {
+  const id = await courseRepo.createCourse(courseData, ownerId);
   return { id, ...courseData } as Course;
 };
 

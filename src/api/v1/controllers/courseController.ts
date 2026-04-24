@@ -1,12 +1,14 @@
 import { Request, Response } from "express";
+import { AuthRequest } from '../middleware/authMiddleware';
 import { HTTP_STATUS } from "../../../constants/httpConstants";
 import * as courseService from "../services/courseService";
 
 export const getAllCoursesController = async (
-  req: Request,
+  req: AuthRequest,
   res: Response
 ): Promise<void> => {
-  const courses = await courseService.getAllCourses();
+  const ownerId = req.user?.uid;
+  const courses = await courseService.getAllCourses(ownerId);
 
   res.status(HTTP_STATUS.OK).json({
     message: "Courses retrieved successfully.",
@@ -34,11 +36,12 @@ export const getCourseByIdController = async (
 };
 
 export const createCourseController = async (
-  req: Request,
+  req: AuthRequest,
   res: Response
 ): Promise<void> => {
   try {
-    const course = await courseService.createCourse(req.body);
+    const ownerId = req.user?.uid;
+    const course = await courseService.createCourse(req.body, ownerId);
 
     res.status(HTTP_STATUS.CREATED).json({
       message: "Course created successfully.",
