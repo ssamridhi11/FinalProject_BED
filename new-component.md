@@ -1,4 +1,4 @@
-## New Component — node-cron
+## New Component :node-cron
 To automatically manage time-based events in the system I'll be using a small scheduled worker (node-cron). This worker will run periodic tasks that keep data consistent and perform background maintenance.
 
 ### Planned features
